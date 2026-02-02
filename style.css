@@ -1,0 +1,42 @@
+:root {
+    --bg: #0a0a0a;
+    --card-bg: #161616;
+    --primary: #00adb5;
+    --text: #eeeeee;
+    --text-dim: #b0b0b0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+/* Navigation */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 10%; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); }
+.logo { font-size: 1.5rem; font-weight: 800; color: var(--text); }
+.logo span { color: var(--primary); }
+nav ul { display: flex; list-style: none; }
+nav ul li { margin-left: 2rem; }
+nav ul li a { text-decoration: none; color: var(--text-dim); transition: 0.3s; font-size: 0.9rem; }
+nav ul li a:hover { color: var(--primary); }
+
+/* Hero Section */
+.hero { height: 100vh; display: flex; align-items: center; padding: 0 10%; background: radial-gradient(circle at 10% 20%, rgba(0, 173, 181, 0.05) 0%, transparent 50%); }
+.hero-content h1 { font-size: 4rem; margin-bottom: 1rem; }
+.hero-content p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 2rem; }
+
+/* Cards & Grid */
+.section { padding: 8rem 10%; }
+.section-title { font-size: 2rem; margin-bottom: 3rem; text-align: center; color: var(--primary); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+.skill-card, .project-card { background: var(--card-bg); padding: 2rem; border-radius: 15px; border: 1px solid #222; transition: 0.4s; position: relative; overflow: hidden; }
+.skill-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0, 173, 181, 0.1); }
+.skill-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; }
+
+/* Buttons */
+.btn { padding: 0.8rem 2rem; border-radius: 5px; background: var(--primary); color: white; text-decoration: none; font-weight: 600; transition: 0.3s; display: inline-block; }
+.btn.secondary { background: transparent; border: 1px solid var(--primary); margin-left: 1rem; color: var(--primary); }
+.btn:hover { transform: scale(1.05); }
+
+/* Animations */
+.reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
