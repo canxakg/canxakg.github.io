@@ -7,58 +7,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const navbar = document.getElementById('navbar');
 
-    const messages = [
-        "System.init(user='Can Akgün')",
-        "Loading modules: [Python, Django, AI]",
-        "Establishing connection...",
-        "Access Granted."
-    ];
+    if (introOverlay) {
+        // --- RUN INTRO ON HOME PAGE ---
+        const messages = [
+            "System.init(user='Can Akgün')",
+            "Loading modules: [Python, Django, AI]",
+            "Establishing connection...",
+            "Access Granted."
+        ];
 
-    let msgIndex = 0;
-    let charIndex = 0;
-    
-    function typeText() {
-        if (msgIndex < messages.length) {
-            if (charIndex < messages[msgIndex].length) {
-                terminalText.textContent += messages[msgIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(typeText, 30); // Typing speed
-            } else {
-                // Line finished
-                terminalText.textContent += '\n'; // Add line break visually if needed or just clear
-                setTimeout(() => {
-                    terminalText.textContent = ""; // Clear for next line (console style)
-                    // Or keep history: terminalText.innerHTML += '<br>';
-                    msgIndex++;
-                    charIndex = 0;
-                    
-                    // Update Loading Bar
-                    let progress = (msgIndex / messages.length) * 100;
-                    loadingBar.style.width = `${progress}%`;
-
-                    typeText();
-                }, 400); // Pause between lines
-            }
-        } else {
-            // Sequence Complete
-            setTimeout(finishIntro, 500);
-        }
-    }
-
-    function finishIntro() {
-        introOverlay.style.transition = "transform 0.8s ease-in-out, opacity 0.8s";
-        introOverlay.style.transform = "translateY(-100%)";
-        introOverlay.style.opacity = "0.9"; // Fade slightly as it moves
+        let msgIndex = 0;
+        let charIndex = 0;
         
-        body.classList.remove('hidden-overflow');
-        navbar.style.transform = "translateY(0)";
+        function typeText() {
+            if (msgIndex < messages.length) {
+                if (charIndex < messages[msgIndex].length) {
+                    terminalText.textContent += messages[msgIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeText, 30); // Typing speed
+                } else {
+                    terminalText.textContent += '\n'; 
+                    setTimeout(() => {
+                        terminalText.textContent = ""; 
+                        msgIndex++;
+                        charIndex = 0;
+                        
+                        let progress = (msgIndex / messages.length) * 100;
+                        loadingBar.style.width = `${progress}%`;
 
-        // Trigger Hero Animations
+                        typeText();
+                    }, 400); 
+                }
+            } else {
+                setTimeout(finishIntro, 500);
+            }
+        }
+
+        function finishIntro() {
+            introOverlay.style.transition = "transform 0.8s ease-in-out, opacity 0.8s";
+            introOverlay.style.transform = "translateY(-100%)";
+            introOverlay.style.opacity = "0.9"; 
+            
+            body.classList.remove('hidden-overflow');
+            navbar.style.transform = "translateY(0)";
+
+            triggerHeroAnimations();
+        }
+
+        typeText();
+    } else {
+        // --- NO INTRO (OTHER PAGES) ---
+        if(navbar) {
+            navbar.style.transform = "translateY(0)";
+        }
+        // Trigger animations immediately if any exist
         triggerHeroAnimations();
     }
-
-    // Start Intro
-    typeText();
 
 
     // --- SCROLL OBSERVING (Intersection Observer) ---
